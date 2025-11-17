@@ -44,7 +44,7 @@ const ResultsDisplay = ({ results, searchParams }) => {
         return;
       }
 
-      // Main headers (###, ##, or numbered sections like "1.", "2.")
+      // Main headers (###, ##, or numbered sections like "1.", "2.", "3.")
       if (trimmedLine.match(/^#{1,3}\s+(.+)/) || trimmedLine.match(/^\d+\.\s+(.+)/)) {
         if (listItems.length > 0) {
           formattedElements.push(
@@ -58,8 +58,26 @@ const ResultsDisplay = ({ results, searchParams }) => {
         let headerText = trimmedLine.replace(/^#{1,3}\s+/, '').replace(/^\d+\.\s+/, '');
         // Remove any ** from headers
         headerText = headerText.replace(/\*\*/g, '');
+        
+        // Check if this is the Travel Tips section
+        const isTravelTips = headerText.toLowerCase().includes('travel tips');
+        
         formattedElements.push(
-          <h3 key={index} className="section-header">{headerText}</h3>
+          <h3 
+            key={index} 
+            className="section-header"
+            style={isTravelTips ? {
+              background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+              color: 'white',
+              padding: '1rem 1.5rem',
+              borderRadius: '12px',
+              marginTop: '2rem',
+              fontSize: '1.5rem',
+              boxShadow: '0 4px 15px rgba(102, 126, 234, 0.3)'
+            } : {}}
+          >
+            {isTravelTips && '💡 '}{headerText}
+          </h3>
         );
       }
       // Hotel entries (starting with **)
