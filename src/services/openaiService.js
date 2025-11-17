@@ -57,6 +57,13 @@ Please provide:
    - Local transportation options
    - Must-visit attractions
    - Any visa or travel requirements for Indian travelers
+   - Best time to visit
+   - Local cuisine recommendations
+   - Safety tips and precautions
+
+IMPORTANT FORMATTING:
+- TRAVEL TIPS section is MANDATORY - You MUST provide at least 5-7 travel tips
+- Each travel tip should be a bullet point with detailed information
 
 IMPORTANT PRICING FORMAT:
 - Flights: Put airline and class in bold like **Air India: Economy Class** or **Emirates: Business Class**
@@ -73,7 +80,7 @@ Format the response in a clear, readable way with proper sections and bullet poi
       messages: [
         {
           role: 'system',
-          content: 'You are an experienced travel agent specializing in flight and hotel recommendations for Indian travelers. CRITICAL: For flights, recommend 2-3 airlines. For EACH airline, format as follows: 1) Airline name as a header in bold, 2) Flight timings and duration, 3) List only the class names (NOT "Airline Name: Class") - use **Economy Class**, **Business Class**, **First Class** with individual prices. Example: "**Air India** - Departure: 10:30 AM, Arrival: 2:45 PM (Duration: 4h 15m) - **Economy Class** $500-$700 (₹41,000-₹58,000), **Business Class** $1,200-$1,500 (₹99,000-₹1,24,000), **First Class** $2,000-$2,500 (₹1,65,000-₹2,06,000)". Always display prices in BOTH local currency AND Indian Rupees (₹). Use current exchange rates for accurate conversions.'
+          content: 'You are an experienced travel agent specializing in flight and hotel recommendations for Indian travelers. CRITICAL: For flights, recommend 2-3 airlines. For EACH airline, format as follows: 1) Airline name as a header in bold, 2) Flight timings and duration, 3) List only the class names (NOT "Airline Name: Class") - use **Economy Class**, **Business Class**, **First Class** with individual prices. Example: "**Air India** - Departure: 10:30 AM, Arrival: 2:45 PM (Duration: 4h 15m) - **Economy Class** $500-$700 (₹41,000-₹58,000), **Business Class** $1,200-$1,500 (₹99,000-₹1,24,000), **First Class** $2,000-$2,500 (₹1,65,000-₹2,06,000)". Always display prices in BOTH local currency AND Indian Rupees (₹). Use current exchange rates for accurate conversions. MANDATORY: You MUST include a detailed TRAVEL TIPS section with at least 6-8 practical tips about the destination including best areas to stay, local transportation, must-visit attractions, visa requirements, best time to visit, local cuisine, and safety tips.'
         },
         {
           role: 'user',
@@ -81,7 +88,7 @@ Format the response in a clear, readable way with proper sections and bullet poi
         }
       ],
       temperature: 0.7,
-      max_tokens: 2000
+      max_tokens: 3000
     });
 
     return response.choices[0].message.content;

@@ -27,6 +27,7 @@ const ResultsDisplay = ({ results, searchParams }) => {
     const formattedElements = [];
     let currentSection = null;
     let listItems = [];
+    let isTravelTipsSection = false;
     
     lines.forEach((line, index) => {
       const trimmedLine = line.trim();
@@ -34,8 +35,9 @@ const ResultsDisplay = ({ results, searchParams }) => {
       // Skip empty lines between sections
       if (!trimmedLine) {
         if (listItems.length > 0) {
+          const listClass = isTravelTipsSection ? 'travel-tips-list' : 'hotel-list';
           formattedElements.push(
-            <ul key={`ul-${index}`} className="hotel-list">
+            <ul key={`ul-${index}`} className={listClass}>
               {listItems}
             </ul>
           );
@@ -47,8 +49,9 @@ const ResultsDisplay = ({ results, searchParams }) => {
       // Main headers (###, ##, or numbered sections like "1.", "2.", "3.")
       if (trimmedLine.match(/^#{1,3}\s+(.+)/) || trimmedLine.match(/^\d+\.\s+(.+)/)) {
         if (listItems.length > 0) {
+          const listClass = isTravelTipsSection ? 'travel-tips-list' : 'hotel-list';
           formattedElements.push(
-            <ul key={`ul-${index}`} className="hotel-list">
+            <ul key={`ul-${index}`} className={listClass}>
               {listItems}
             </ul>
           );
@@ -60,13 +63,13 @@ const ResultsDisplay = ({ results, searchParams }) => {
         headerText = headerText.replace(/\*\*/g, '');
         
         // Check if this is the Travel Tips section
-        const isTravelTips = headerText.toLowerCase().includes('travel tips');
+        isTravelTipsSection = headerText.toLowerCase().includes('travel tips');
         
         formattedElements.push(
           <h3 
             key={index} 
             className="section-header"
-            style={isTravelTips ? {
+            style={isTravelTipsSection ? {
               background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
               color: 'white',
               padding: '1rem 1.5rem',
@@ -76,7 +79,7 @@ const ResultsDisplay = ({ results, searchParams }) => {
               boxShadow: '0 4px 15px rgba(102, 126, 234, 0.3)'
             } : {}}
           >
-            {isTravelTips && '💡 '}{headerText}
+            {isTravelTipsSection && '💡 '}{headerText}
           </h3>
         );
       }
@@ -197,8 +200,9 @@ const ResultsDisplay = ({ results, searchParams }) => {
               );
             }
           } else {
+            const listClass = isTravelTipsSection ? 'travel-tips-list' : 'hotel-list';
             formattedElements.push(
-              <ul key={`ul-${index}`} className="hotel-list">
+              <ul key={`ul-${index}`} className={listClass}>
                 {listItems}
               </ul>
             );
@@ -235,8 +239,9 @@ const ResultsDisplay = ({ results, searchParams }) => {
           );
         }
       } else {
+        const listClass = isTravelTipsSection ? 'travel-tips-list' : 'hotel-list';
         formattedElements.push(
-          <ul key={`ul-final`} className="hotel-list">
+          <ul key={`ul-final`} className={listClass}>
             {listItems}
           </ul>
         );
