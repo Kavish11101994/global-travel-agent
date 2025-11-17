@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import HotelSearchForm from './components/HotelSearchForm';
 import ResultsDisplay from './components/ResultsDisplay';
+import ItineraryPanel from './components/ItineraryPanel';
 import { searchHotels } from './services/openaiService';
 import './App.css';
 
@@ -40,7 +41,16 @@ function App() {
           </div>
         )}
 
-        {results && <ResultsDisplay results={results} searchParams={searchParams} />}
+        {results && (
+          <div className="results-layout">
+            <div className="results-main">
+              <ResultsDisplay results={results} searchParams={searchParams} />
+            </div>
+            <div className="results-sidebar">
+              <ItineraryPanel searchParams={searchParams} rawResults={results} />
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
